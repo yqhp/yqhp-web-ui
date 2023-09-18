@@ -1,7 +1,7 @@
 /** 统一处理 localStorage */
 
 import CacheKey from "@/constants/cache-key"
-import { type SidebarOpened, type SidebarClosed } from "@/constants/app-key"
+import { type SidebarOpened, type SidebarClosed, SIDEBAR_CLOSED } from "@/constants/app-key"
 import { type ThemeName } from "@/hooks/useTheme"
 import { type TagView } from "@/store/modules/tags-view"
 import { type LayoutSettings } from "@/config/layouts"
@@ -21,7 +21,7 @@ export const removeConfigLayout = () => {
 
 //#region 侧边栏状态
 export const getSidebarStatus = () => {
-  return localStorage.getItem(CacheKey.SIDEBAR_STATUS)
+  return localStorage.getItem(CacheKey.SIDEBAR_STATUS) || SIDEBAR_CLOSED
 }
 export const setSidebarStatus = (sidebarStatus: SidebarOpened | SidebarClosed) => {
   localStorage.setItem(CacheKey.SIDEBAR_STATUS, sidebarStatus)

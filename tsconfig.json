@@ -6,7 +6,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     /** TS 严格模式 */
-    "strict": true,
+    "strict": false,
     "jsx": "preserve",
     "importHelpers": true,
     "experimentalDecorators": true,

@@ -4,7 +4,7 @@ import { type RouteLocationNormalized } from "vue-router"
 const whiteListByPath: string[] = ["/login"]
 
 /** 免登录白名单（匹配路由 name） */
-const whiteListByName: string[] = []
+const whiteListByName: string[] = ["Report"]
 
 /** 判断是否在白名单 */
 const isWhiteList = (to: RouteLocationNormalized) => {

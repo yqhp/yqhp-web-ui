@@ -1,20 +1,20 @@
 {
-  "name": "v3-admin-vite",
-  "version": "4.2.2",
-  "description": "一个免费开源的中后台管理系统基础解决方案，基于 Vue3、TypeScript、Element Plus、Pinia 和 Vite 等主流技术",
+  "name": "yqhp-web-ui",
+  "version": "1.0.4",
+  "description": "yqhp automation",
   "author": {
-    "name": "pany",
-    "email": "939630029@qq.com",
-    "url": "https://github.com/pany-ang"
+    "name": "jiangyitao",
+    "email": "283052497@qq.com",
+    "url": "https://github.com/jiangyitao"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/un-pany/v3-admin-vite.git"
+    "url": "https://github.com/yqhp/yqhp-web-ui"
   },
   "scripts": {
     "dev": "vite",
     "build:stage": "vue-tsc --noEmit && vite build --mode staging",
-    "build:prod": "vue-tsc --noEmit && vite build",
+    "build:prod": "vite build",
     "preview:stage": "pnpm build:stage && vite preview",
     "preview:prod": "pnpm build:prod && vite preview",
     "lint:eslint": "eslint --cache --max-warnings 0 \"{src,tests,types}/**/*.{vue,js,jsx,ts,tsx}\" --fix",
@@ -28,16 +28,23 @@
     "axios": "1.5.0",
     "dayjs": "1.11.9",
     "element-plus": "2.3.14",
+    "fast-xml-parser": "^4.2.2",
+    "jmuxer": "^2.0.5",
     "js-cookie": "3.0.5",
     "lodash-es": "4.17.21",
     "mitt": "3.0.1",
+    "monaco-editor": "^0.37.1",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
     "path-browserify": "1.0.1",
     "path-to-regexp": "6.2.1",
+    "perfect-debounce": "^0.1.3",
     "pinia": "2.1.6",
     "screenfull": "6.0.2",
+    "sortablejs": "^1.15.0",
+    "splitpanes": "^3.1.5",
     "vue": "3.3.4",
+    "vue-clipboard3": "^2.0.0",
     "vue-router": "4.2.4",
     "vxe-table": "4.4.1",
     "vxe-table-plugin-element": "3.0.7",

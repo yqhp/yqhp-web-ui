@@ -35,17 +35,17 @@ export interface LayoutSettings {
 /** 默认配置 */
 const defaultSettings: LayoutSettings = {
   layoutMode: "left",
-  showSettings: true,
-  showTagsView: true,
+  showSettings: false,
+  showTagsView: false,
   fixedHeader: true,
-  showFooter: true,
+  showFooter: false,
   showLogo: true,
-  showNotify: true,
+  showNotify: false,
   showThemeSwitch: true,
   showScreenfull: true,
-  showSearchMenu: true,
+  showSearchMenu: false,
   cacheTagsView: false,
-  showWatermark: true,
+  showWatermark: false,
   showGreyMode: false,
   showColorWeakness: false
 }

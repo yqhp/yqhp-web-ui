@@ -10,19 +10,6 @@ const Layouts = () => import("@/layouts/index.vue")
  */
 export const constantRoutes: RouteRecordRaw[] = [
   {
-    path: "/redirect",
-    component: Layouts,
-    meta: {
-      hidden: true
-    },
-    children: [
-      {
-        path: "/redirect/:path(.*)",
-        component: () => import("@/views/redirect/index.vue")
-      }
-    ]
-  },
-  {
     path: "/403",
     component: () => import("@/views/error-page/403.vue"),
     meta: {
@@ -62,191 +49,61 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: "/unocss",
+    path: "/coding",
     component: Layouts,
-    redirect: "/unocss/index",
+    redirect: "/coding/index",
     children: [
       {
         path: "index",
-        component: () => import("@/views/unocss/index.vue"),
-        name: "UnoCSS",
+        component: () => import("@/views/coding/index.vue"),
+        name: "Coding",
         meta: {
-          title: "UnoCSS",
-          svgIcon: "unocss"
+          title: "Coding",
+          svgIcon: "coding"
         }
       }
     ]
   },
   {
-    path: "/link",
-    meta: {
-      title: "外链",
-      svgIcon: "link"
-    },
-    children: [
-      {
-        path: "https://juejin.cn/post/7089377403717287972",
-        component: () => {},
-        name: "Link1",
-        meta: {
-          title: "中文文档"
-        }
-      },
-      {
-        path: "https://juejin.cn/column/7207659644487139387",
-        component: () => {},
-        name: "Link2",
-        meta: {
-          title: "新手教程"
-        }
-      }
-    ]
-  },
-  {
-    path: "/table",
+    path: "/plan",
     component: Layouts,
-    redirect: "/table/element-plus",
-    name: "Table",
-    meta: {
-      title: "表格",
-      elIcon: "Grid"
-    },
+    redirect: "/plan/index",
     children: [
       {
-        path: "element-plus",
-        component: () => import("@/views/table/element-plus/index.vue"),
-        name: "ElementPlus",
+        path: "index",
+        component: () => import("@/views/plan/index.vue"),
+        name: "Plan",
         meta: {
-          title: "Element Plus",
-          keepAlive: true
-        }
-      },
-      {
-        path: "vxe-table",
-        component: () => import("@/views/table/vxe-table/index.vue"),
-        name: "VxeTable",
-        meta: {
-          title: "Vxe Table",
-          keepAlive: true
+          title: "计划",
+          svgIcon: "plan"
         }
       }
     ]
   },
   {
-    path: "/menu",
+    path: "/executionRecord",
     component: Layouts,
-    redirect: "/menu/menu1",
-    name: "Menu",
-    meta: {
-      title: "多级路由",
-      svgIcon: "menu"
-    },
+    redirect: "/executionRecord/index",
     children: [
       {
-        path: "menu1",
-        component: () => import("@/views/menu/menu1/index.vue"),
-        redirect: "/menu/menu1/menu1-1",
-        name: "Menu1",
+        path: "index",
+        component: () => import("@/views/executionRecord/index.vue"),
+        name: "ExecutionRecord",
         meta: {
-          title: "menu1"
-        },
-        children: [
-          {
-            path: "menu1-1",
-            component: () => import("@/views/menu/menu1/menu1-1/index.vue"),
-            name: "Menu1-1",
-            meta: {
-              title: "menu1-1",
-              keepAlive: true
-            }
-          },
-          {
-            path: "menu1-2",
-            component: () => import("@/views/menu/menu1/menu1-2/index.vue"),
-            redirect: "/menu/menu1/menu1-2/menu1-2-1",
-            name: "Menu1-2",
-            meta: {
-              title: "menu1-2"
-            },
-            children: [
-              {
-                path: "menu1-2-1",
-                component: () => import("@/views/menu/menu1/menu1-2/menu1-2-1/index.vue"),
-                name: "Menu1-2-1",
-                meta: {
-                  title: "menu1-2-1",
-                  keepAlive: true
-                }
-              },
-              {
-                path: "menu1-2-2",
-                component: () => import("@/views/menu/menu1/menu1-2/menu1-2-2/index.vue"),
-                name: "Menu1-2-2",
-                meta: {
-                  title: "menu1-2-2",
-                  keepAlive: true
-                }
-              }
-            ]
-          },
-          {
-            path: "menu1-3",
-            component: () => import("@/views/menu/menu1/menu1-3/index.vue"),
-            name: "Menu1-3",
-            meta: {
-              title: "menu1-3",
-              keepAlive: true
-            }
-          }
-        ]
-      },
-      {
-        path: "menu2",
-        component: () => import("@/views/menu/menu2/index.vue"),
-        name: "Menu2",
-        meta: {
-          title: "menu2",
-          keepAlive: true
+          title: "执行记录",
+          svgIcon: "execution-record"
         }
       }
     ]
   },
   {
-    path: "/hook-demo",
-    component: Layouts,
-    redirect: "/hook-demo/use-fetch-select",
-    name: "HookDemo",
+    path: "/report/:id",
+    component: () => import("@/views/report/index.vue"),
+    name: "Report",
     meta: {
-      title: "Hook 示例",
-      elIcon: "Menu",
-      alwaysShow: true
-    },
-    children: [
-      {
-        path: "use-fetch-select",
-        component: () => import("@/views/hook-demo/use-fetch-select.vue"),
-        name: "UseFetchSelect",
-        meta: {
-          title: "useFetchSelect"
-        }
-      },
-      {
-        path: "use-fullscreen-loading",
-        component: () => import("@/views/hook-demo/use-fullscreen-loading.vue"),
-        name: "UseFullscreenLoading",
-        meta: {
-          title: "useFullscreenLoading"
-        }
-      },
-      {
-        path: "use-watermark",
-        component: () => import("@/views/hook-demo/use-watermark.vue"),
-        name: "UseWatermark",
-        meta: {
-          title: "useWatermark"
-        }
-      }
-    ]
+      title: "报告",
+      hidden: true
+    }
   }
 ]
 
@@ -257,32 +114,39 @@ export const constantRoutes: RouteRecordRaw[] = [
  */
 export const asyncRoutes: RouteRecordRaw[] = [
   {
-    path: "/permission",
+    path: "/system",
     component: Layouts,
-    redirect: "/permission/page",
-    name: "Permission",
+    redirect: "/system/project",
+    name: "System",
     meta: {
-      title: "权限管理",
-      svgIcon: "lock",
-      roles: ["admin", "editor"], // 可以在根路由中设置角色
-      alwaysShow: true // 将始终显示根菜单
+      title: "系统管理",
+      svgIcon: "system",
+      roles: ["admin"],
+      alwaysShow: true
     },
     children: [
       {
-        path: "page",
-        component: () => import("@/views/permission/page.vue"),
-        name: "PagePermission",
+        path: "project",
+        component: () => import("@/views/system/project/index.vue"),
+        name: "SystemProject",
         meta: {
-          title: "页面权限",
-          roles: ["admin"] // 或者在子导航中设置角色
+          title: "项目管理"
         }
       },
       {
-        path: "directive",
-        component: () => import("@/views/permission/directive.vue"),
-        name: "DirectivePermission",
+        path: "user",
+        component: () => import("@/views/system/user/index.vue"),
+        name: "SystemUser",
         meta: {
-          title: "指令权限" // 如果未设置角色，则表示：该页面不需要权限，但会继承根路由的角色
+          title: "用户管理"
+        }
+      },
+      {
+        path: "plugin",
+        component: () => import("@/views/system/plugin/index.vue"),
+        name: "SystemPlugin",
+        meta: {
+          title: "插件管理"
         }
       }
     ]
