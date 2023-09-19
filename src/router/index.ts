@@ -59,7 +59,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "Coding",
         meta: {
           title: "Coding",
-          svgIcon: "coding"
+          elIcon: "KnifeFork"
         }
       }
     ]
@@ -120,7 +120,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
     name: "System",
     meta: {
       title: "系统管理",
-      svgIcon: "system",
+      elIcon: "Setting",
       roles: ["admin"],
       alwaysShow: true
     },
