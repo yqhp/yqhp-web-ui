@@ -9,7 +9,6 @@ import ExecutionStatusText from "@/views/components/ExecutionStatusText.vue"
 import ActionPassRateText from "@/views/components/ActionPassRateText.vue"
 import ExecutionDetails from "./components/ExecutionDetails.vue"
 import { PlanRunMode } from "@/data/console-data"
-import { ExecutionStatus } from "@/data/console-data"
 
 const route = useRoute()
 const executionRecordId = route.params.id
@@ -150,9 +149,7 @@ const handleDeleteDeviceRecord = async (row) => {
               <el-button type="primary" bg text size="small" @click="showDeviceExecutionDetails(row)">详情</el-button>
               <el-popconfirm title="确认删除" @confirm="handleDeleteDeviceRecord(row)">
                 <template #reference>
-                  <el-button type="primary" bg text size="small" :disabled="row.status !== ExecutionStatus.Todo">
-                    删除
-                  </el-button>
+                  <el-button type="primary" bg text size="small"> 删除 </el-button>
                 </template>
               </el-popconfirm>
             </template>

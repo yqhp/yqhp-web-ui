@@ -3,7 +3,7 @@ import { reactive, ref, onMounted } from "vue"
 import { getPagingExecutionRecord, deleteExecutionRecord } from "@/api/console/executionRecord"
 import { listPlanByProjectId } from "@/api/console/plan"
 import { useProjectStore } from "@/store/modules/project"
-import { executionStatusList, ExecutionStatus } from "@/data/console-data"
+import { executionStatusList } from "@/data/console-data"
 import { formatDateTime } from "@/utils/date"
 import { useRouter } from "vue-router"
 import ExecutionStatusText from "@/views/components/ExecutionStatusText.vue"
@@ -136,9 +136,7 @@ onMounted(() => {
             <el-button type="primary" text bg size="small" @click="openReport(row)">详情</el-button>
             <el-popconfirm title="确认删除" @confirm="handleDelete(row)">
               <template #reference>
-                <el-button type="danger" bg text size="small" :disabled="row.status !== ExecutionStatus.Todo">
-                  删除
-                </el-button>
+                <el-button type="danger" bg text size="small"> 删除 </el-button>
               </template>
             </el-popconfirm>
           </template>
