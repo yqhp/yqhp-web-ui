@@ -25,7 +25,7 @@ const showDetails = (row) => {
 
 <template>
   <el-card v-if="data.pluginExecutionResult?.records?.length" header="插件执行记录">
-    <el-table :data="data.pluginExecutionResult.records" size="small">
+    <el-table :data="data.pluginExecutionResult.records">
       <el-table-column label="插件">
         <template #default="{ row }">
           <PluginText :name="row.plugin.name" />
@@ -44,7 +44,7 @@ const showDetails = (row) => {
     </el-table>
   </el-card>
   <el-card v-if="data.docExecutionResult?.records" header="Doc执行记录" class="mt-2">
-    <el-table :data="data.docExecutionResult.records" size="small">
+    <el-table :data="data.docExecutionResult.records">
       <el-table-column label="Doc">
         <template #default="{ row }">
           <DocText :doc="row.doc" />

@@ -8,11 +8,13 @@ import DeviceText from "@/views/components/DeviceText.vue"
 import ExecutionStatusText from "@/views/components/ExecutionStatusText.vue"
 import ActionPassRateText from "@/views/components/ActionPassRateText.vue"
 import ExecutionDetails from "./components/ExecutionDetails.vue"
-import { PlanRunMode } from "@/data/console-data"
+import { useUserStore } from "@/store/modules/user"
 
+const userStore = useUserStore()
 const route = useRoute()
 const executionRecordId = route.params.id
 
+const report = ref({})
 const summary = reactive({
   projectName: "",
   planName: "",
@@ -20,37 +22,34 @@ const summary = reactive({
   createTime: "",
   startTime: 0,
   endTime: 0,
+  status: 0,
   actionTotalCount: 0,
   actionPassCount: 0,
   actionFailureCount: 0,
   actionSkipCount: 0,
-  actionPassRate: "",
-  status: 0
+  actionPassRate: ""
 })
-const isDeviceMode = ref(false)
-const report = ref({})
-const fetchReport = async () => {
-  const _report = await getReportById(executionRecordId)
-  report.value = _report
-  const deviceMode = _report.plan.runMode === PlanRunMode.Efficient || _report.plan.runMode === PlanRunMode.Compatible
-  isDeviceMode.value = deviceMode
 
-  summary.projectName = _report.project.name
-  summary.planName = _report.plan.name
-  summary.creator = _report.creator
-  summary.createTime = _report.createTime
-  summary.startTime = deviceMode ? _report.devicesResult.startTime : _report.result.startTime
-  summary.endTime = deviceMode ? _report.devicesResult.endTime : _report.result.endTime
-  summary.actionTotalCount = deviceMode
-    ? _report.devicesResult.totalCount
-    : _report.result.docExecutionResult.totalCount
-  summary.actionPassCount = deviceMode ? _report.devicesResult.passCount : _report.result.docExecutionResult.passCount
-  summary.actionFailureCount = deviceMode
-    ? _report.devicesResult.failureCount
-    : _report.result.docExecutionResult.failureCount
-  summary.actionSkipCount = deviceMode ? _report.devicesResult.skipCount : _report.result.docExecutionResult.skipCount
-  summary.actionPassRate = deviceMode ? _report.devicesResult.passRate : _report.result.docExecutionResult.passRate
-  summary.status = deviceMode ? _report.devicesResult.status : _report.result.status
+const fetchReport = async () => {
+  const res = await getReportById(executionRecordId)
+  report.value = res
+
+  const deviceMode = res.deviceMode
+  const result = deviceMode ? res.devicesResult : res.result
+
+  summary.projectName = res.project.name
+  summary.planName = res.plan.name
+  summary.creator = res.creator
+  summary.createTime = res.createTime
+  summary.startTime = result.startTime
+  summary.endTime = result.endTime
+  summary.status = result.status
+
+  summary.actionTotalCount = deviceMode ? result.totalCount : result.docExecutionResult.totalCount
+  summary.actionPassCount = deviceMode ? result.passCount : result.docExecutionResult.passCount
+  summary.actionFailureCount = deviceMode ? result.failureCount : result.docExecutionResult.failureCount
+  summary.actionSkipCount = deviceMode ? result.skipCount : result.docExecutionResult.skipCount
+  summary.actionPassRate = deviceMode ? result.passRate : result.docExecutionResult.passRate
 }
 
 onMounted(() => {
@@ -75,7 +74,7 @@ const handleDeleteDeviceRecord = async (row) => {
   <div class="app-container">
     <div>
       <el-card header="概况">
-        <el-descriptions :column="5" size="small">
+        <el-descriptions :column="5">
           <el-descriptions-item label="项目">{{ summary.projectName }}</el-descriptions-item>
           <el-descriptions-item label="计划">{{ summary.planName }}</el-descriptions-item>
           <el-descriptions-item label="执行人">{{ summary.creator }}</el-descriptions-item>
@@ -103,12 +102,12 @@ const handleDeleteDeviceRecord = async (row) => {
         </el-descriptions>
       </el-card>
     </div>
-    <div class="mt-2" v-if="!isDeviceMode">
+    <div class="mt-2" v-if="!report.deviceMode">
       <ExecutionDetails :data="report.result || {}" />
     </div>
     <div class="mt-2" v-else>
       <el-card header="设备执行记录">
-        <el-table :data="report.devicesResult?.deviceExecutionResults || []" size="small">
+        <el-table :data="report.devicesResult?.deviceExecutionResults || []">
           <el-table-column label="设备">
             <template #default="{ row }">
               <DeviceText :device="report.devices[row.deviceId]" :show-status="false" />
@@ -119,22 +118,22 @@ const handleDeleteDeviceRecord = async (row) => {
               <DurationText :duration="[row.startTime, row.endTime]" />
             </template>
           </el-table-column>
-          <el-table-column label="Action通过数" width="100">
+          <el-table-column label="Action通过数" width="120">
             <template #default="{ row }">
               <el-text type="success">{{ row.docExecutionResult.passCount }}</el-text>
             </template>
           </el-table-column>
-          <el-table-column label="Action失败数" width="100">
+          <el-table-column label="Action失败数" width="120">
             <template #default="{ row }">
               <el-text type="danger">{{ row.docExecutionResult.failureCount }}</el-text>
             </template>
           </el-table-column>
-          <el-table-column label="Action跳过数" width="100">
+          <el-table-column label="Action跳过数" width="120">
             <template #default="{ row }">
               <el-text type="warning">{{ row.docExecutionResult.skipCount }}</el-text>
             </template>
           </el-table-column>
-          <el-table-column label="Action通过率" width="100">
+          <el-table-column label="Action通过率" width="120">
             <template #default="{ row }">
               <ActionPassRateText :pass-rate="row.docExecutionResult.passRate" />
             </template>
@@ -144,10 +143,11 @@ const handleDeleteDeviceRecord = async (row) => {
               <ExecutionStatusText :status="row.status" />
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="120">
+          <el-table-column label="操作" width="150">
             <template #default="{ row }">
               <el-button type="primary" bg text size="small" @click="showDeviceExecutionDetails(row)">详情</el-button>
-              <el-popconfirm title="确认删除" @confirm="handleDeleteDeviceRecord(row)">
+              <!-- 已登陆的用户，才显示删除 -->
+              <el-popconfirm v-if="userStore?.nickname" title="确认删除" @confirm="handleDeleteDeviceRecord(row)">
                 <template #reference>
                   <el-button type="primary" bg text size="small"> 删除 </el-button>
                 </template>
@@ -158,7 +158,7 @@ const handleDeleteDeviceRecord = async (row) => {
       </el-card>
     </div>
   </div>
-  <el-drawer v-if="isDeviceMode" v-model="deviceExecutionDetailsVisible" size="80%" :with-header="false">
+  <el-drawer v-if="report.deviceMode" v-model="deviceExecutionDetailsVisible" size="95%" :with-header="false">
     <ExecutionDetails :data="deviceExecutionResult" />
   </el-drawer>
 </template>
