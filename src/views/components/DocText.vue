@@ -7,15 +7,15 @@ defineProps({
 </script>
 
 <template>
-  <template v-if="doc">
+  <el-text v-if="doc" truncated>
     <svg-icon
       :color="docStatusList.find((status) => status.value === doc.status)?.color"
       :name="docStatusList.find((status) => status.value === doc.status)?.icon"
     />
     <svg-icon :name="docKindList.find((kind) => kind.value === doc.kind)?.icon" />
     {{ doc.name }}
-  </template>
-  <el-text v-else tag="del">Unknown Doc</el-text>
+  </el-text>
+  <el-text v-else tag="del">Doc Deleted</el-text>
 </template>
 
 <style lang="scss" scoped></style>

@@ -11,15 +11,16 @@ defineProps({
 
 <template>
   <template v-if="device">
-    <!-- ws-nowrap overflow-hidden text-ellipsis 超出一行，超出部分显示... -->
-    <div class="font-bold ws-nowrap overflow-hidden text-ellipsis">
-      <svg-icon
-        :color="deviceTypeList.find((type) => type.value === device.type)?.color"
-        :name="devicePlatformList.find((platform) => platform.value === device.platform)?.icon"
-      />
-      <span class="mx-1"> {{ device.brand }} </span>
-      <span> {{ device.model }} </span>
-      <span> ({{ device.id }}) </span>
+    <div>
+      <el-text truncated tag="b">
+        <svg-icon
+          :color="deviceTypeList.find((type) => type.value === device.type)?.color"
+          :name="devicePlatformList.find((platform) => platform.value === device.platform)?.icon"
+        />
+        <span class="mx-1"> {{ device.brand }} </span>
+        <span> {{ device.model }} </span>
+        <span> ({{ device.id }}) </span>
+      </el-text>
     </div>
     <div>
       <span> {{ devicePlatformList.find((platform) => platform.value === device.platform)?.label }} </span>

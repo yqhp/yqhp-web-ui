@@ -3,7 +3,7 @@ import { ref, reactive } from "vue"
 import { DeviceStatus, devicePlatformList, deviceStatusList, deviceTypeList, DevicePlatform } from "@/data/console-data"
 import { getPagingDevices, deleteDeviceById } from "@/api/console/device"
 import { ElMessage, ElMessageBox } from "element-plus"
-import { CaretRight, More, Plus } from "@element-plus/icons-vue"
+import { CaretRight, More } from "@element-plus/icons-vue"
 import DeviceText from "@/views/components/DeviceText.vue"
 import SaveDevice from "../SaveDevice/index.vue"
 
@@ -174,8 +174,8 @@ defineExpose({ open, close })
             <el-button type="primary" @click="handleSearch">查询</el-button>
             <el-button @click="resetSearch">重置</el-button>
             <el-button @click="getTableData">刷新</el-button>
-            <el-button v-if="selectable" :icon="Plus" type="success" @click="addSelected">
-              勾选{{ tableSelected.length }}个设备
+            <el-button v-if="selectable" type="success" @click="addSelected">
+              添加{{ tableSelected.length }}个设备
             </el-button>
           </el-form-item>
         </el-form>

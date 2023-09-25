@@ -118,7 +118,8 @@ onMounted(() => {
         <el-table-column label="计划" show-overflow-tooltip>
           <template #default="{ row }">
             <ExecutionStatusText :status="row.status" />
-            {{ plans.find((plan) => plan.id === row.planId)?.name }}
+            <el-text v-if="plans.some((plan) => plan.id === row.planId)">{{ row.plan.name }}</el-text>
+            <el-text v-else tag="del">{{ row.plan.name }}</el-text>
           </template>
         </el-table-column>
         <el-table-column label="执行时间" show-overflow-tooltip>
