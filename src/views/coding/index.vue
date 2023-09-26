@@ -52,8 +52,8 @@ const removeTab = (id) => {
 </script>
 
 <template>
-  <div class="h-full p-2">
-    <Splitpanes class="default-theme">
+  <div class="h-full border-white border-solid border-2px">
+    <Splitpanes>
       <Pane :size="debuggerPaneSize">
         <Debugger />
       </Pane>
@@ -97,5 +97,9 @@ const removeTab = (id) => {
 <style lang="scss" scoped>
 :deep(.el-tabs__header) {
   margin: 0 0 2px;
+}
+
+:deep(.splitpanes__splitter) {
+  border: 1px solid white;
 }
 </style>

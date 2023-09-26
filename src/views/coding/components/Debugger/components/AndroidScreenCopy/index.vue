@@ -11,7 +11,7 @@ import {
   AndroidKeyEventMeta
 } from "@/data/scrcpy-data"
 import { emitter } from "@/utils/mitt"
-import { Search, ChromeFilled, UploadFilled, Picture } from "@element-plus/icons-vue"
+import { Search, ChromeFilled, UploadFilled, Picture, SwitchButton, Scissor } from "@element-plus/icons-vue"
 import Inspector from "../Inspector/index.vue"
 import BrowserList from "../BrowserList/index.vue"
 import InstallApp from "../InstallApp/index.vue"
@@ -272,11 +272,10 @@ onUnmounted(() => {
       <div>
         <el-button
           text
+          :icon="SwitchButton"
           @mousedown="sendKeycode(AndroidKeyEventAction.Down, AndroidKeyCode.Power)"
           @mouseup="sendKeycode(AndroidKeyEventAction.Up, AndroidKeyCode.Power)"
-        >
-          <svg-icon name="power" />
-        </el-button>
+        />
       </div>
       <div>
         <el-button
@@ -331,9 +330,7 @@ onUnmounted(() => {
         </el-popover>
       </div>
       <div>
-        <el-button text @click="screenshotFromVideo(true)">
-          <svg-icon name="screenshot" />
-        </el-button>
+        <el-button text :icon="Scissor" @click="screenshotFromVideo(true)" />
       </div>
       <div>
         <el-popover trigger="click" :hide-after="0" placement="right" width="30%">

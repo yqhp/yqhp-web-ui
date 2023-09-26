@@ -47,7 +47,7 @@ export const deviceTypeList = [
   {
     label: "真机",
     value: 1,
-    color: "black"
+    color: ""
   },
   {
     label: "模拟器",

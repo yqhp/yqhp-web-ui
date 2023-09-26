@@ -4,7 +4,7 @@ import { getWdaWsUrl } from "@/api/agent/device"
 import { useDeviceStore } from "@/store/modules/device"
 import { AndroidMotionEventAction } from "@/data/scrcpy-data"
 import { emitter } from "@/utils/mitt"
-import { UploadFilled, Search } from "@element-plus/icons-vue"
+import { UploadFilled, Search, SwitchButton, Scissor } from "@element-plus/icons-vue"
 import Inspector from "../Inspector/index.vue"
 import InstallApp from "../InstallApp/index.vue"
 
@@ -218,9 +218,7 @@ const screenshotFromCanvas = (download: boolean) => {
     </div>
     <div class="w-8 flex flex-col justify-center items-center">
       <div>
-        <el-button text @click="sendButton('power')">
-          <svg-icon name="power" />
-        </el-button>
+        <el-button text :icon="SwitchButton" @click="sendButton('power')" />
       </div>
       <div>
         <el-button text @click="sendButton('volumeup')">
@@ -242,9 +240,7 @@ const screenshotFromCanvas = (download: boolean) => {
         </el-popover>
       </div>
       <div>
-        <el-button text @click="screenshotFromCanvas(true)">
-          <svg-icon name="screenshot" />
-        </el-button>
+        <el-button text :icon="Scissor" @click="screenshotFromCanvas(true)" />
       </div>
       <div>
         <el-popover trigger="click" :hide-after="0" placement="right" width="30%">
