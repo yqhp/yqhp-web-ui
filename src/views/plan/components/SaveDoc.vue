@@ -101,18 +101,16 @@ const checkedDocs = computed(() => {
 })
 
 const addDocs = async () => {
-  const checkedDocList = checkedDocs.value.map((node) => {
-    return {
-      planId,
-      docId: node.id
-    }
-  })
-  if (!checkedDocList.length) {
-    ElMessage.error("请勾选Doc")
+  const checkedDocIds = checkedDocs.value.map((node) => node.id)
+  if (!checkedDocIds.length) {
+    ElMessage.warning("请勾选Action")
     return
   }
   saveBtnLoading.value = true
-  await createPlanDocs(checkedDocList).finally(() => (saveBtnLoading.value = false))
+  await createPlanDocs({
+    planId,
+    docIds: checkedDocIds
+  }).finally(() => (saveBtnLoading.value = false))
   fetchPlanDocs()
 }
 

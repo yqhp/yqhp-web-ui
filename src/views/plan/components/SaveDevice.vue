@@ -66,13 +66,11 @@ const handleDelete = async (idx, row) => {
 const unselectableDeviceIds = computed(() => planDevices.value.map((item) => item.deviceId))
 
 const addDevices = async (devices) => {
-  const planDevices = devices.map((row) => {
-    return {
-      planId,
-      deviceId: row.id
-    }
+  const deviceIds = devices.map((row) => row.id)
+  await createPlanDevices({
+    planId,
+    deviceIds
   })
-  await createPlanDevices(planDevices)
   ElMessage.success("添加成功")
   fetchPlanDevices()
 }

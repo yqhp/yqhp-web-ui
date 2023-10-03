@@ -7,7 +7,7 @@ defineProps({
   default: () => []
 })
 
-const getType = (tag) => (tag === "warn" ? "warning" : tag === "error" ? "danger" : "info")
+const getLogType = (tag) => (tag === "warn" ? "warning" : tag === "error" ? "danger" : "info")
 </script>
 
 <template>
@@ -17,10 +17,10 @@ const getType = (tag) => (tag === "warn" ? "warning" : tag === "error" ? "danger
         <el-text size="small" type="info">{{ formatTime(log.timestamp) }}</el-text>
       </div>
       <div class="mx-1 ws-pre">
-        <el-text size="small" :type="getType(log.tag)">[{{ log.tag }}]</el-text>
+        <el-text size="small" :type="getLogType(log.tag)">[{{ log.tag }}]</el-text>
       </div>
-      <div v-if="log.tag === 'screenshot'" class="ws-pre">
-        <el-text size="small" type="info" class="block">
+      <div v-if="log.tag === 'screenshot'">
+        <el-text size="small" type="info" class="block ws-pre">
           {{ JSON.parse(log.value).info }} {{ formatBytes(JSON.parse(log.value).file.size) }}
         </el-text>
         <el-image
@@ -29,8 +29,14 @@ const getType = (tag) => (tag === "warn" ? "warning" : tag === "error" ? "danger
           :preview-src-list="[JSON.parse(log.value).file.url]"
         />
       </div>
-      <div v-else class="ws-pre">
-        <el-text size="small" :type="getType(log.tag)">{{ log.value }}</el-text>
+      <div v-else-if="log.tag === 'video'">
+        <el-text size="small" type="info" class="block ws-pre">
+          {{ JSON.parse(log.value).info }} {{ formatBytes(JSON.parse(log.value).file.size) }}
+        </el-text>
+        <video class="w-60" controls :src="JSON.parse(log.value).file.url" />
+      </div>
+      <div v-else>
+        <el-text size="small" :type="getLogType(log.tag)" class="ws-pre">{{ log.value }}</el-text>
       </div>
     </div>
   </div>
