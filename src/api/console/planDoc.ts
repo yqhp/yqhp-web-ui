@@ -1,11 +1,21 @@
 import { request } from "@/utils/service"
 
-export function listPlanDocByPlanId(planId) {
+export function listSortedPlanDocByPlanId(planId) {
   return request({
-    url: "/console/planDoc",
+    url: "/console/planDoc/listSortedByPlanId",
     method: "get",
     params: {
       planId
+    }
+  })
+}
+
+export function listPlanDocByDocId(docId) {
+  return request({
+    url: "/console/planDoc/listByDocId",
+    method: "get",
+    params: {
+      docId
     }
   })
 }
@@ -38,6 +48,14 @@ export function deletePlanDocById(id) {
   return request({
     url: `/console/planDoc/${id}`,
     method: "delete"
+  })
+}
+
+export function deletePlanDoc(data) {
+  return request({
+    url: "/console/planDoc",
+    method: "delete",
+    data
   })
 }
 

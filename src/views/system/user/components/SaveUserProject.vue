@@ -42,7 +42,7 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="visible" :title="`${user?.username}参与项目`" :close-on-click-modal="false" width="600px">
+  <el-dialog v-model="visible" :title="`【项目】${user?.username}`" :close-on-click-modal="false" width="600px">
     <el-checkbox
       v-for="project in allProjects"
       :key="project.id"

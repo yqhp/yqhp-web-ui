@@ -42,7 +42,7 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="visible" :title="`${user?.username}角色`" :close-on-click-modal="false" width="600px">
+  <el-dialog v-model="visible" :title="`【角色】${user?.username}`" :close-on-click-modal="false" width="600px">
     <el-checkbox
       v-for="role in allRoles"
       :key="role.id"

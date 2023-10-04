@@ -6,6 +6,7 @@ import { deletePkgById, movePkg } from "@/api/console/pkg"
 import { deleteDocById, moveDoc, copyDoc } from "@/api/console/doc"
 import SavePkg from "../SavePkg/index.vue"
 import AddDoc from "../AddDoc/index.vue"
+import SavePlanDoc from "../SavePlanDoc/index.vue"
 import { ElMessageBox } from "element-plus"
 import { Plus, More, Search } from "@element-plus/icons-vue"
 import { TreeNodeType, PkgType, DocKind, DocFlow } from "@/data/console-data"
@@ -17,6 +18,7 @@ const pkgTreeStore = usePkgTreeStore()
 
 const savePkgRef = ref()
 const addDocRef = ref()
+const savePlanDocRef = ref()
 
 const treeRef = ref()
 const expandedKeys = ref([]) // 由于每次刷新treeData，会触发重新渲染tree，node的展开/收起状态会被重置，需要保存node的展开状态
@@ -54,6 +56,10 @@ const handleAddDoc = (pkg) => {
     kind: DocKind.JshInit,
     flow: DocFlow.StopRunningNextIfError
   })
+}
+
+const handleSavePlanDoc = (doc) => {
+  savePlanDocRef.value.open(doc)
 }
 
 const handleCopyDoc = async (doc) => {
@@ -150,6 +156,10 @@ const isDocNode = (data) => {
   return data.type === TreeNodeType.Doc
 }
 
+const isActionNode = (data) => {
+  return data.data.kind === DocKind.JshAction
+}
+
 onMounted(() => {
   fetchTreeData()
 })
@@ -193,6 +203,7 @@ onMounted(() => {
             </div>
             <div class="more">
               <el-icon v-if="isPkgNode(data)" @click.stop="handleAddDoc(data.data)"><Plus /></el-icon>
+              <el-icon v-if="isActionNode(data)" @click.stop="handleSavePlanDoc(data.data)"><Plus /></el-icon>
               <el-dropdown>
                 <el-icon class="mx-2"><More /></el-icon>
                 <template #dropdown>
@@ -217,12 +228,13 @@ onMounted(() => {
 
   <save-pkg ref="savePkgRef" @ok="fetchTreeData" />
   <add-doc ref="addDocRef" @ok="onDocAdded" />
+  <save-plan-doc ref="savePlanDocRef" />
 </template>
 
 <style lang="scss" scoped>
 .more {
   visibility: hidden;
-  transition: visibility 1s ease; /* 添加渐变效果 */
+  transition: visibility 0.5s ease; /* 添加渐变效果 */
 }
 .tree-row:hover .more {
   visibility: visible;

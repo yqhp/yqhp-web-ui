@@ -60,7 +60,7 @@ defineExpose({
 </script>
 
 <template>
-  <el-dialog v-model="visible" :title="`${plugin?.name}文件管理`" :close-on-click-modal="false" width="80%">
+  <el-dialog v-model="visible" :title="`【文件管理】${plugin?.name}`" :close-on-click-modal="false" width="80%">
     <el-row :gutter="5">
       <el-col :span="6">
         <el-upload

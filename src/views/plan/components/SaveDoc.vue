@@ -2,7 +2,7 @@
 import { ref, watch, onMounted, computed, nextTick } from "vue"
 import {
   deletePlanDocById,
-  listPlanDocByPlanId,
+  listSortedPlanDocByPlanId,
   movePlanDoc,
   updatePlanDoc,
   createPlanDocs
@@ -21,7 +21,7 @@ let planId
 const planDocs = ref([])
 
 const fetchPlanDocs = async () => {
-  planDocs.value = await listPlanDocByPlanId(planId)
+  planDocs.value = await listSortedPlanDocByPlanId(planId)
 }
 
 const initData = (_planId) => {
