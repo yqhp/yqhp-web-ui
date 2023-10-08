@@ -58,11 +58,11 @@ const nodeInfoAttrs = props.isAndroid
       "displayed"
     ]
   : [
-      "value",
       "name",
       "label",
       "xpath-lite",
       "xpath",
+      "value",
       "type",
       "center",
       "bounds",
@@ -157,11 +157,11 @@ const displayNodeInfo = (node, path) => {
   fillCanvas(node.bounds)
   const tree = treeData.value
   // 用于计算xpathLite 以及 推荐定位
-  const attrs = props.isAndroid ? ["resource-id", "content-desc", "text"] : ["value", "name", "label"]
+  const attrs = props.isAndroid ? ["resource-id", "content-desc", "text"] : ["name", "label"]
   const xpathLite = getXPathLite(tree, path, attrs)
   const xpath = getXPath(tree, path)
   const [x, y, width, height] = node.bounds
-  const center = [x + width / 2, y + height / 2]
+  const center = [parseInt(x + width / 2), parseInt(y + height / 2)]
   nodeInfo.value = {
     ...node,
     "xpath-lite": xpathLite,
@@ -276,7 +276,12 @@ onUnmounted(() => {
       <div class="flex-1 overflow-auto">
         <el-descriptions v-if="nodeInfo" size="small" border :column="1">
           <el-descriptions-item v-for="attr in nodeInfoAttrs" :key="attr" :label="attr" label-class-name="w-30">
-            <el-tag v-if="suggestedAttrs.some((suggested) => suggested === attr)" type="success" size="small">
+            <el-tag
+              v-if="suggestedAttrs.some((suggested) => suggested === attr)"
+              type="success"
+              size="small"
+              effect="plain"
+            >
               推荐
             </el-tag>
             {{ nodeInfo[attr] }}
