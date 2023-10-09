@@ -117,7 +117,7 @@ onMounted(() => {
       <el-table height="100%" :data="tableData.records">
         <el-table-column label="计划" show-overflow-tooltip>
           <template #default="{ row }">
-            <ExecutionStatusText :status="row.status" />
+            <ExecutionStatusText class="min-w-15 mr-2" :status="row.status" />
             <el-text v-if="plans.some((plan) => plan.id === row.planId)">{{ row.plan.name }}</el-text>
             <el-text v-else tag="del">{{ row.plan.name }}</el-text>
           </template>

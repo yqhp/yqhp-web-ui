@@ -7,7 +7,7 @@ import { findMatchedNode } from "@/utils/bounds"
 import { getXPath, getXPathLite, scanAttrValueCount } from "@/utils/locator"
 import { emitter } from "@/utils/mitt"
 import { ElMessage } from "element-plus"
-import { Refresh } from "@element-plus/icons-vue"
+import { Refresh, DocumentCopy } from "@element-plus/icons-vue"
 import useClipboard from "vue-clipboard3"
 
 const props = defineProps({
@@ -276,16 +276,9 @@ onUnmounted(() => {
       <div class="flex-1 overflow-auto">
         <el-descriptions v-if="nodeInfo" size="small" border :column="1">
           <el-descriptions-item v-for="attr in nodeInfoAttrs" :key="attr" :label="attr" label-class-name="w-30">
-            <el-tag
-              v-if="suggestedAttrs.some((suggested) => suggested === attr)"
-              type="success"
-              size="small"
-              effect="plain"
-            >
-              推荐
-            </el-tag>
+            <el-tag v-if="suggestedAttrs.includes(attr)" type="success" size="small" effect="plain"> 推荐 </el-tag>
             {{ nodeInfo[attr] }}
-            <el-button v-if="nodeInfo[attr]" size="small" text bg @click="copyText(nodeInfo[attr])">复制</el-button>
+            <el-button v-if="nodeInfo[attr]" size="small" text :icon="DocumentCopy" @click="copyText(nodeInfo[attr])" />
           </el-descriptions-item>
         </el-descriptions>
       </div>
