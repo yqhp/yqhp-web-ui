@@ -63,7 +63,7 @@ const removeTab = (id) => {
             <Splitpanes>
               <Pane :size="100 - treePaneSize" class="flex flex-col">
                 <div v-if="activeTab">
-                  <el-tabs type="card" closable @tab-remove="removeTab" v-model="activeTab">
+                  <el-tabs closable @tab-remove="removeTab" v-model="activeTab">
                     <el-tab-pane v-for="tab in tabs" :key="tab.id" :name="tab.id">
                       <template #label>
                         <DocText :doc="pkgTreeStore.docMap[tab.id]" />
