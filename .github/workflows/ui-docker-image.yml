@@ -45,4 +45,4 @@ jobs:
           push: true
           tags: |
             registry.cn-hangzhou.aliyuncs.com/jiangyitao/yqhp-web-ui:latest
-            registry.cn-hangzhou.aliyuncs.com/jiangyitao/yqhp-web-ui:1.1.3
+            registry.cn-hangzhou.aliyuncs.com/jiangyitao/yqhp-web-ui:1.1.4
