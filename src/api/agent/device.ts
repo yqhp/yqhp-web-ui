@@ -42,7 +42,7 @@ export function dumpHierarchy(deviceToken, location) {
   return request({
     url: "/agent/device/dumpHierarchy",
     method: "get",
-    timeout: 300_000,
+    timeout: 60_000,
     headers: {
       "agent-location": location,
       deviceToken
